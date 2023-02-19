@@ -1,12 +1,20 @@
 package models
 
-import "github.com/google/uuid"
+import (
+	"time"
+
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
 
 type Menu struct {
-	ID          uuid.UUID `gorm:"primaryKey"`
+	ID          uuid.UUID `gorm:"type:char(36);primary_key"`
 	Name        string
 	Description string
 	Image       string
-	Submenu     []Submenu `gorm:"ForeignKey:MainMenuID"`
-	Available   uint16
+	Submenus    []Submenu
+	Available   int
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	DeletedAt   gorm.DeletedAt `gorm:"index"`
 }
