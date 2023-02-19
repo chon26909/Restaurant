@@ -19,6 +19,7 @@ type SqlLogger struct {
 func NewMySqlConnection() *gorm.DB {
 
 	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local",
+
 		viper.GetString("db.username"),
 		viper.GetString("db.password"),
 		viper.GetString("db.host"),
@@ -35,7 +36,7 @@ func NewMySqlConnection() *gorm.DB {
 		panic(err)
 	}
 
-	err = db.AutoMigrate(&models.Menu{}, &models.Submenu{})
+	err = db.Migrator().AutoMigrate(&models.Menu{}, &models.Submenu{})
 	if err != nil {
 		fmt.Println("err auto migrate", err)
 	}
