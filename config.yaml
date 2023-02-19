@@ -1,0 +1,15 @@
+app:
+  port: 4000
+
+db:
+  host: "192.168.1.152"
+  port: 3306
+  username: "restaurant"
+  password: "P@ssw0rd"
+  database: "restaurant"
+
+cloudinary:
+  name: "dvzib8cte"
+  apiKey: 192494392215866
+  apiSecret: "5uGKxDU0UWmbCtKs7hAS_YzrByY"
+  folder: "Restaurant"

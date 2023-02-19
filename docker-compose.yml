@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+
+  # Database
+  mysql:
+    image: mysql:latest
+    container_name: restaurant-mysql
+    restart: always
+    environment: 
+      MYSQL_DATABASE: 'restaurant'
+      MYSQL_USER: 'restaurant'
+      MYSQL_PASSWORD: 'P@ssw0rd'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports: 
+      - 3306:3306
+    expose: 
+      - 3306
+    volumes: 
+      - ./data:/var/lib/mysql
+
+  # Cache in memory
+  # redis:
+  #   image: redis:latest
+  #   container_name: parktify-redis
+  #   restart: always
+  #   ports: 
+  #     - 1234:6379
+  #   expose:
+  #     - 1234
+
+  # Application
+  # server: 
+  #   depends_on:
+  #     - mysql
+  #     - redis
+  #   container_name: parktify-server
+  #   build: .
+  #   ports:
+  #     - 4000:4000
+  #   expose:
+  #     - 4000
