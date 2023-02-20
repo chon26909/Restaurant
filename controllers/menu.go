@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"restaurant/models"
 	"restaurant/repository"
 
@@ -9,7 +10,8 @@ import (
 )
 
 type MenuController interface {
-	CreateMenu(ctx *fiber.Ctx) error
+	CreateMenu(c *fiber.Ctx) error
+	GetAllMenu(c *fiber.Ctx) error
 }
 
 type menuController struct {
@@ -20,7 +22,7 @@ func NewMenuController(menuRepository repository.MenuRepository) MenuController 
 	return &menuController{menuRepository}
 }
 
-func (c *menuController) CreateMenu(ctx *fiber.Ctx) error {
+func (r *menuController) CreateMenu(c *fiber.Ctx) error {
 
 	body := &models.Menu{
 		ID:          uuid.New(),
@@ -40,7 +42,21 @@ func (c *menuController) CreateMenu(ctx *fiber.Ctx) error {
 		Available: 1,
 	}
 
-	c.menuRepository.CreateMenu(body)
+	r.menuRepository.CreateMenu(body)
 
 	return nil
+}
+
+func (r *menuController) GetAllMenu(c *fiber.Ctx) error {
+	allMenu, err := r.menuRepository.GetAllMenu()
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("all menu %v", allMenu)
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message": "success",
+		"data":    allMenu,
+	})
 }
