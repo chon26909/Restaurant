@@ -21,7 +21,8 @@ func NewMenuRepository(db *gorm.DB) MenuRepository {
 
 func (r *menuRepository) GetAllMenu() (menu []models.Menu, err error) {
 
-	err = r.db.Model(&models.Menu{}).Preload("Submenu").Find(&menu).Error
+	// Submenus name in model Menu
+	err = r.db.Preload("Submenus").Find(&menu).Error
 
 	return menu, err
 }
