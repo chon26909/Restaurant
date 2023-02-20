@@ -18,56 +18,13 @@ import (
 
 func main() {
 
-	// Test()
-
-	// return
-
 	initConfig()
 
 	db := lib.NewMySqlConnection()
-	// dsn := "restaurant:P@ssw0rd@tcp(127.0.0.1:3306)/restaurant?charset=utf8mb4&parseTime=True&loc=Local"
-	// db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
-	// 	Logger: &lib.SqlLogger{},
-	// })
-	// if err != nil {
-	// 	log.Fatalf("Failed to connect to database: %v", err)
-	// }
 
-	// err = db.AutoMigrate(&models.Menu{}, &models.Submenu{})
-	// if err != nil {
-	// 	log.Fatalf("Failed to auto-migrate models: %v", err)
-	// }
 	menuRepository := repository.NewMenuRepository(db)
 
 	menuController := controllers.NewMenuController(menuRepository)
-
-	// menu := &models.Menu{
-	// 	ID:          uuid.New(),
-	// 	Name:        "หมูสไลด์บาง",
-	// 	Description: "หมู",
-	// 	Image:       "deoaih",
-	// 	Submenus: []models.Submenu{
-	// 		{
-
-	// 			ID:          uuid.New(),
-	// 			Name:        "บาง",
-	// 			Description: "บางมาก",
-	// 			Image:       "sub",
-	// 			Available:   1,
-	// 		},
-	// 	},
-	// 	Available: 1,
-	// }
-
-	// menuRepository.CreateMenu(menu)
-
-	// data, err := menuRepository.GetAllMenu()
-	// if err != nil {
-	// 	fmt.Println("err", err)
-	// 	return
-	// }
-	// logs.Info("GetAllMenu")
-	// fmt.Println(data)
 
 	app := fiber.New()
 	app.Get("/", func(c *fiber.Ctx) error {
@@ -76,6 +33,7 @@ func main() {
 
 	menu := app.Group("/menu")
 	menu.Post("/", menuController.CreateMenu)
+	menu.Get("/", menuController.GetAllMenu)
 
 	log.Fatal(app.Listen(fmt.Sprintf(":%v", viper.GetInt("app.port"))))
 }
