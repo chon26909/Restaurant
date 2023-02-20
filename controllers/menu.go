@@ -12,6 +12,7 @@ import (
 type MenuController interface {
 	CreateMenu(c *fiber.Ctx) error
 	GetAllMenu(c *fiber.Ctx) error
+	UpdateMenu(c *fiber.Ctx) error
 }
 
 type menuController struct {
@@ -59,4 +60,8 @@ func (r *menuController) GetAllMenu(c *fiber.Ctx) error {
 		"message": "success",
 		"data":    allMenu,
 	})
+}
+
+func (r *menuController) UpdateMenu(c *fiber.Ctx) error {
+	return nil
 }
