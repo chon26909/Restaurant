@@ -45,7 +45,9 @@ func (r *menuController) CreateMenu(c *fiber.Ctx) error {
 
 	r.menuRepository.CreateMenu(body)
 
-	return nil
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"message": "created",
+	})
 }
 
 func (r *menuController) GetAllMenu(c *fiber.Ctx) error {
