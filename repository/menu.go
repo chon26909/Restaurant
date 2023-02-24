@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"fmt"
 	"restaurant/models"
 
 	"github.com/google/uuid"
@@ -11,6 +12,7 @@ type MenuRepository interface {
 	CreateMenu(menu *models.Menu) error
 	GetAllMenu() (menu []models.Menu, err error)
 	UpdateMenu(menuID uuid.UUID, menu *models.Menu) error
+	DeleteMenu(menuID uuid.UUID) error
 }
 
 type menuRepository struct {
@@ -36,6 +38,21 @@ func (r *menuRepository) CreateMenu(menu *models.Menu) error {
 
 func (r *menuRepository) UpdateMenu(menuID uuid.UUID, menu *models.Menu) error {
 
-	r.db.First(&menu)
+	// var oldData model.
+	err := r.db.First(&menu)
+	if err != nil {
+		fmt.Println("")
+		fmt.Printf("error => %v\n", err)
+	}
+
+	fmt.Printf("success %v\n", menu)
+
 	return r.db.Save(&menu).Error
+
+	// return r.db.Model(&menu).Where("id = ?", menuID).Updates(menu).Error
+}
+
+func (r *menuRepository) DeleteMenu(menuID uuid.UUID) error {
+
+	return r.db.Delete(&models.Menu{}, menuID).Error
 }
