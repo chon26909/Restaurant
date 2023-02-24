@@ -12,8 +12,7 @@ type Submenu struct {
 	MenuID      uuid.UUID `gorm:"type:char(36)"`
 	Name        string
 	Description string
-	Image       string
-	Available   int
+	Available   bool
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 	DeletedAt   gorm.DeletedAt `gorm:"index"`
