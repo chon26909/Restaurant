@@ -3,6 +3,7 @@ package utils
 import (
 	"context"
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/cloudinary/cloudinary-go/v2"
@@ -33,6 +34,10 @@ func UploadImage(base64 string) (*uploader.UploadResult, error) {
 func GetImageNameFromUrl(imageUrl string) string {
 
 	imageUrlArr := strings.Split(imageUrl, "/")
-	imageName := imageUrlArr[len(imageUrlArr)-1]
-	return imageName
+	imageUrlArr = imageUrlArr[len(imageUrlArr)-3:]
+	return strings.Join(imageUrlArr[:], "/")
+}
+
+func GetPublicUrl(imageName string) string {
+	return fmt.Sprintf("%v%v", viper.GetString("cloudinary.publicUrl"), imageName)
 }
