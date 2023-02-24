@@ -13,3 +13,4 @@ cloudinary:
   apiKey: 192494392215866
   apiSecret: "5uGKxDU0UWmbCtKs7hAS_YzrByY"
   folder: "Restaurant"
+  publicUrl: "https://res.cloudinary.com/dvzib8cte/image/upload/"
