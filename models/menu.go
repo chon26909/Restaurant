@@ -13,7 +13,7 @@ type Menu struct {
 	Description string
 	Image       string
 	Submenus    []Submenu
-	Available   int
+	Available   bool
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 	DeletedAt   gorm.DeletedAt `gorm:"index"`
