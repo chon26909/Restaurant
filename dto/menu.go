@@ -17,9 +17,10 @@ type CreateMenuRequest struct {
 }
 
 type MenuResponse struct {
-	ID        uuid.UUID `json:"id"`
-	Name      string    `json:"name"`
-	Image     string    `json:"image"`
-	Submenus  []Submenu `json:"submenus"`
-	Available bool      `json:"available"`
+	ID          uuid.UUID `json:"id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	Image       string    `json:"image"`
+	Submenus    []Submenu `json:"submenus"`
+	Available   bool      `json:"available"`
 }
