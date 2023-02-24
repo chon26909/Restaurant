@@ -34,12 +34,14 @@ func (r *menuController) CreateMenu(ctx *fiber.Ctx) error {
 		return err
 	}
 
-	fmt.Printf("body %v", body)
+	// fmt.Printf("body %v", body)
 
 	resultUpload, err := utils.UploadImage(body.Image)
 	if err != nil {
 		return err
 	}
+
+	fmt.Printf("%v", resultUpload)
 
 	menuID := uuid.New()
 
@@ -94,11 +96,12 @@ func (r *menuController) GetAllMenu(ctx *fiber.Ctx) error {
 		}
 
 		response = append(response, dto.MenuResponse{
-			ID:        v.ID,
-			Name:      v.Name,
-			Image:     v.Image,
-			Submenus:  subMenus,
-			Available: v.Available,
+			ID:          v.ID,
+			Name:        v.Name,
+			Description: v.Description,
+			Image:       utils.GetPublicUrl(v.Image),
+			Submenus:    subMenus,
+			Available:   v.Available,
 		})
 	}
 
