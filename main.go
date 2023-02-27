@@ -18,20 +18,26 @@ func main() {
 
 	db := lib.NewMySqlConnection()
 
+	// repository
 	menuRepository := repository.NewMenuRepository(db)
+	buffetRepository := repository.NewBuffetRepository(db)
 
+	// controller
 	menuController := controllers.NewMenuController(menuRepository)
+	buffetController := controllers.NewBuffetController(buffetRepository)
 
+	// app
 	app := fiber.New()
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello world")
-	})
 
 	menu := app.Group("/menu")
 	menu.Post("/", menuController.CreateMenu)
 	menu.Get("/", menuController.GetAllMenu)
 	menu.Put("/:id", menuController.UpdateMenu)
 	menu.Delete("/:id", menuController.DeleteMenu)
+
+	buffet := app.Group("/buffet")
+	buffet.Post("/", buffetController.CreateBuffet)
+	buffet.Get("/", buffetController.GetPackageBuffet)
 
 	log.Fatal(app.Listen(fmt.Sprintf(":%v", viper.GetInt("app.port"))))
 }
