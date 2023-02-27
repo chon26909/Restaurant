@@ -7,7 +7,7 @@ import (
 )
 
 type Buffet struct {
-	ID          uint `gorm:"primaryKey;autoIncrement"`
+	ID          int `gorm:"primaryKey;autoIncrement"`
 	Name        string
 	Description string
 	Image       string

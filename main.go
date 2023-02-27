@@ -21,10 +21,12 @@ func main() {
 	// repository
 	menuRepository := repository.NewMenuRepository(db)
 	buffetRepository := repository.NewBuffetRepository(db)
+	tableRepository := repository.NewTableRepository(db)
 
 	// controller
 	menuController := controllers.NewMenuController(menuRepository)
 	buffetController := controllers.NewBuffetController(buffetRepository)
+	tableController := controllers.NewTableController(tableRepository)
 
 	// app
 	app := fiber.New()
@@ -37,7 +39,11 @@ func main() {
 
 	buffet := app.Group("/buffet")
 	buffet.Post("/", buffetController.CreateBuffet)
+	buffet.Put("/:id", buffetController.UpdateBuffet)
 	buffet.Get("/", buffetController.GetPackageBuffet)
+
+	table := app.Group("/table")
+	table.Post("/", tableController.AddTable)
 
 	log.Fatal(app.Listen(fmt.Sprintf(":%v", viper.GetInt("app.port"))))
 }

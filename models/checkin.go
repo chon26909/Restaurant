@@ -7,14 +7,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type Email struct {
+type CheckIn struct {
 	ID        uuid.UUID `gorm:"type:char(36);primary_key"`
+	Table     Table     `gorm:"references:ID"`
+	Buffet    Buffet    `gorm:"references:ID"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt `gorm:"index"`
-
-	Address string
-	Status  string
-	UserID  uuid.UUID `gorm:"type:char(36)"`
-	// User    User      `gorm:"foreignKey:UserID"`
 }

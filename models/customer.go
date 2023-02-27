@@ -7,12 +7,10 @@ import (
 	"gorm.io/gorm"
 )
 
-type User struct {
+type Customer struct {
 	ID        uuid.UUID `gorm:"type:char(36);primary_key"`
+	Name      string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt `gorm:"index"`
-
-	Name   string
-	Emails []Email
 }

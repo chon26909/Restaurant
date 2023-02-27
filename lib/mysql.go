@@ -36,7 +36,7 @@ func NewMySqlConnection() *gorm.DB {
 		panic(err)
 	}
 
-	err = db.Migrator().AutoMigrate(&models.Menu{}, &models.Submenu{}, &models.Buffet{})
+	err = db.Migrator().AutoMigrate(&models.Menu{}, &models.Submenu{}, &models.Buffet{}, &models.Table{})
 	if err != nil {
 		fmt.Println("err auto migrate", err)
 	}

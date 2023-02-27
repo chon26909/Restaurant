@@ -8,6 +8,7 @@ import (
 
 type BuffetRepository interface {
 	CreateBuffet(data *models.Buffet) error
+	UpdateBuffet(id string, data *models.Buffet) error
 	GetAllBuffets() ([]models.Buffet, error)
 }
 
@@ -23,6 +24,11 @@ func (r *buffetRepository) CreateBuffet(data *models.Buffet) error {
 
 	return r.db.Create(data).Error
 
+}
+
+func (r *buffetRepository) UpdateBuffet(id string, data *models.Buffet) error {
+
+	return r.db.Model(models.Buffet{}).Where("id = ?", id).Updates(data).Error
 }
 
 func (r *buffetRepository) GetAllBuffets() (data []models.Buffet, err error) {
