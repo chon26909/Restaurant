@@ -2,12 +2,12 @@
 
 #### Install Libraries
 
-`go get`
+        go get
 
 #### Run Docker Compose
 
-`docker-compose up -d`
+        docker-compose up -d
 
 #### Run
 
-go run main.go
+        go run main.go
