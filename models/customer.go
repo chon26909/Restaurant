@@ -8,10 +8,10 @@ import (
 )
 
 type Customer struct {
-	ID        uuid.UUID `gorm:"type:char(36);primary_key"`
+	ID        uuid.UUID `gorm:"type:char(36);primaryKey"`
 	Qty       int
-	Table     Table  `gorm:"references:ID"`
-	Buffet    Buffet `gorm:"references:ID"`
+	Table     int
+	Buffet    int
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt `gorm:"index"`
