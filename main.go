@@ -22,11 +22,13 @@ func main() {
 	menuRepository := repository.NewMenuRepository(db)
 	buffetRepository := repository.NewBuffetRepository(db)
 	tableRepository := repository.NewTableRepository(db)
+	customerRepository := repository.NewCustomerRepository(db)
 
 	// controller
 	menuController := controllers.NewMenuController(menuRepository)
 	buffetController := controllers.NewBuffetController(buffetRepository)
 	tableController := controllers.NewTableController(tableRepository)
+	customerController := controllers.NewCustomerController(customerRepository)
 
 	// app
 	app := fiber.New()
@@ -44,6 +46,9 @@ func main() {
 
 	table := app.Group("/table")
 	table.Post("/", tableController.AddTable)
+
+	customer := app.Group("/customer")
+	customer.Post("/checkin", customerController.CheckIn)
 
 	log.Fatal(app.Listen(fmt.Sprintf(":%v", viper.GetInt("app.port"))))
 }
