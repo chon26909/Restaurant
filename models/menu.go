@@ -8,7 +8,7 @@ import (
 )
 
 type Menu struct {
-	ID          uuid.UUID `gorm:"type:char(36);primary_key"`
+	ID          uuid.UUID `gorm:"type:char(36);primaryKey"`
 	Name        string
 	Description string
 	Image       string
