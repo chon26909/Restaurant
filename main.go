@@ -51,6 +51,7 @@ func main() {
 	customer.Post("/checkin", customerController.CheckIn)
 
 	log.Fatal(app.Listen(fmt.Sprintf(":%v", viper.GetInt("app.port"))))
+
 }
 
 func initConfig() {
