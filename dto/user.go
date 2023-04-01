@@ -1,7 +1,8 @@
 package dto
 
 type User struct {
-	ID        int  `json:"id"`
-	Seet      int  `json:"seet"`
-	Available bool `json:"available"`
+	Email     string `json:"email"`
+	Password  string `json:"password"`
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
 }
