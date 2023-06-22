@@ -3,20 +3,23 @@ package main
 import (
 	"fmt"
 	"log"
+	"restaurant/config"
 	"restaurant/controllers"
 	"restaurant/lib"
 	"restaurant/repository"
-	"strings"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/spf13/viper"
 )
 
 func main() {
 
-	initConfig()
+	config := config.InitConfig()
 
-	db := lib.NewMySqlConnection()
+	fmt.Printf("config %v", &config)
+
+	db := lib.NewMySqlConnection(config)
+
+	return
 
 	// repository
 	menuRepository := repository.NewMenuRepository(db)
@@ -55,22 +58,22 @@ func main() {
 	user := app.Group("/user")
 	user.Post("/login", userController.Login)
 
-	log.Fatal(app.Listen(fmt.Sprintf(":%v", viper.GetInt("app.port"))))
+	log.Fatal(app.Listen(fmt.Sprintf(":%v", config.App.Port)))
 }
 
-func initConfig() {
-	viper.SetConfigName("config")
-	viper.SetConfigType("yaml")
-	viper.AddConfigPath(".")
-	viper.AutomaticEnv()
+// func initConfig() {
+// 	viper.SetConfigName("config")
+// 	viper.SetConfigType("yaml")
+// 	viper.AddConfigPath(".")
+// 	viper.AutomaticEnv()
 
-	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+// 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(fmt.Errorf("config file %v", err))
-	}
-}
+// 	err := viper.ReadInConfig()
+// 	if err != nil {
+// 		panic(fmt.Errorf("config file %v", err))
+// 	}
+// }
 
 // func Test() {
 
