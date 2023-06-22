@@ -3,10 +3,10 @@ package lib
 import (
 	"context"
 	"fmt"
+	"restaurant/config"
 	"restaurant/models"
 	"time"
 
-	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -16,15 +16,19 @@ type SqlLogger struct {
 	logger.Interface
 }
 
-func NewMySqlConnection() *gorm.DB {
+func NewMySqlConnection(config *config.Config) *gorm.DB {
 
 	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local",
-
-		viper.GetString("db.username"),
-		viper.GetString("db.password"),
-		viper.GetString("db.host"),
-		viper.GetString("db.port"),
-		viper.GetString("db.database"),
+		config.Db.Host,
+		config.Db.Password,
+		config.Db.Host,
+		config.Db.Port,
+		config.Db.Database,
+		// viper.GetString("db.username"),
+		// viper.GetString("db.password"),
+		// viper.GetString("db.host"),
+		// viper.GetString("db.port"),
+		// viper.GetString("db.database"),
 	)
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
